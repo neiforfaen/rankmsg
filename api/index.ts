@@ -1,21 +1,18 @@
 import { Hono } from 'hono'
-import { cors } from 'hono/cors'
 import { prettyJSON } from 'hono/pretty-json'
 import { handle } from 'hono/vercel'
+import valorantRouter from './routes/valorant'
 
 export const config = {
   runtime: 'edge',
 }
 
-type Bindings = {
-  VAL_API_KEY: string
-}
+const app = new Hono().basePath('/rankmsg')
 
-const app = new Hono<{ Bindings: Bindings }>().basePath('/api/rankmsg')
-
-app.use(cors())
 app.use(prettyJSON())
 
 app.get('/health', (c) => c.json({ status: 'ok' }, 200))
+
+app.route('/valorant', valorantRouter)
 
 export default handle(app)
