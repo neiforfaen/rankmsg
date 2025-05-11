@@ -1,0 +1,22 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dev
+.vercel/
+.vscode/
+.idea/
+.yarn/
+
+# deps
+node_modules/
+
+# env
+.env
+.env*
+
+# logs
+logs/
+*.log
+
+# misc
+.DS_Store
+.vercel
