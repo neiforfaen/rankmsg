@@ -1,5 +1,5 @@
 import type { MMRHistory } from '@/global-types'
-import { isToday } from '@utils/date-checker'
+import { isToday } from './date-checker'
 
 type AggregationTime = 'daily' | 'weekly'
 

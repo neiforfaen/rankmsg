@@ -1,7 +1,7 @@
 import type { MMRHistory, Record } from '@/global-types'
-import aggregateMmr from '@utils/val-mmr-aggregate'
 import { Hono } from 'hono'
 import { env } from 'hono/adapter'
+import aggregateMmr from '../../../utils/val-mmr-aggregate'
 
 const recordRouter = new Hono().basePath('/v1')
 
