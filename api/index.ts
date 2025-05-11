@@ -7,7 +7,7 @@ export const config = {
   runtime: 'edge',
 }
 
-const app = new Hono().basePath('/rankmsg')
+const app = new Hono().basePath('/api/rankmsg')
 
 app.use(prettyJSON())
 
