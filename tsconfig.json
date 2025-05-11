@@ -10,9 +10,11 @@
     "types": ["node"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./*"],
+      "@api/*": ["./api/*"],
+      "@utils/*": ["./utils/*"]
     }
   },
-  "include": ["src"],
+  "include": ["api", "utils"],
   "exclude": ["node_modules", "dist"]
 }
