@@ -1,7 +1,7 @@
 import { Hono } from 'hono'
-import { handle } from 'hono/vercel'
-import { prettyJSON } from 'hono/pretty-json'
 import { cors } from 'hono/cors'
+import { prettyJSON } from 'hono/pretty-json'
+import { handle } from 'hono/vercel'
 
 export const config = {
   runtime: 'edge',
