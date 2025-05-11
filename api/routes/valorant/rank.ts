@@ -13,31 +13,23 @@ rankRouter.get('/v1/:region/:name/:tag', async (c) => {
     const { VAL_API_KEY } = env<Env>(c, 'edge-light')
     const { name, tag, region } = c.req.param()
 
-    if (!['eu', 'na', 'ap', 'kr'].includes(region)) {
-      return c.json({ error: 'Invalid region' }, 400)
+    const validRegions = new Set(['eu', 'na', 'apac'])
+
+    if (!validRegions.has(region) || !name || !tag) {
+      return c.json({ error: 'Invalid region or missing name/tag' }, 400)
     }
 
-    if (!name || !tag) {
-      return c.json({ error: 'Name and tag are required' }, 400)
-    }
-
-    const raw = await get(
+    const { data: { data }} = await get(
       `https://api.henrikdev.xyz/valorant/v2/mmr/${region}/${name}/${tag}?api_key=${VAL_API_KEY}`
     )
-
-    const { data: { data } } = raw
 
     if (!data) {
       return c.json({ message: 'Player not found' }, 404)
     }
 
-    const currentRank: string = data.current_data.currenttierpatched
-    const currentMMR: number = data.current_data.ranking_in_tier
-    const peakRank: string = data.highest_rank.patched_tier
-    const peakSeason: string = data.highest_rank.season.toUpperCase()
-
+    const { current_data, highest_rank } = data
     return c.json({
-      message: `${currentRank} [${currentMMR}RR] | Peak: ${peakRank} @ ${peakSeason}`,
+      message: `${current_data.currenttierpatched} [${current_data.ranking_in_tier}RR] | Peak: ${highest_rank.patched_tier} @ ${highest_rank.season}`,
     })
   } catch (error) {
     const { message } = error as Error
