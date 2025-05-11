@@ -14,15 +14,15 @@ const aggregateMmr = (
   time: AggregationTime
 ): AggregatedMMR => {
   if (time === 'daily') {
-    const filteredHistory = history.filter((record) => isToday(record.date_raw))
-
-    const { mmr, wins, losses } = filteredHistory.reduce(
+    const { mmr, wins, losses } = history.reduce(
       (acc, record) => {
-        acc.mmr += record.mmr_change_to_last_game
-        if (record.mmr_change_to_last_game > 0) {
-          acc.wins++
-        } else if (record.mmr_change_to_last_game < 0) {
-          acc.losses++
+        if (isToday(record.date_raw)) {
+          acc.mmr += record.mmr_change_to_last_game
+          if (record.mmr_change_to_last_game > 0) {
+            acc.wins++
+          } else if (record.mmr_change_to_last_game < 0) {
+            acc.losses++
+          }
         }
         return acc
       },

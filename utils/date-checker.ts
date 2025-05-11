@@ -1,12 +1,9 @@
 export const isToday = (timestamp: number): boolean => {
-  const date = new Date(timestamp * 1000)
-  const today = new Date()
+  const now = new Date()
+  const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() / 1000
+  const endOfDay = startOfDay + 86400 - 1
 
-  return (
-    date.getDate() === today.getDate() &&
-    date.getMonth() === today.getMonth() &&
-    date.getFullYear() === today.getFullYear()
-  )
+  return timestamp >= startOfDay && timestamp <= endOfDay
 }
 
 export const isWithinPastWeek = () => null
