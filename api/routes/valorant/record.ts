@@ -2,6 +2,7 @@ import type { MMRHistory, Record } from '@/global-types'
 import { Hono } from 'hono'
 import { env } from 'hono/adapter'
 import aggregateMmr from '../../../utils/val-mmr-aggregate'
+import get from 'axios'
 
 const recordRouter = new Hono().basePath('/v1')
 
@@ -22,10 +23,10 @@ recordRouter.get('/daily/:region/:name/:tag', async (c) => {
       return c.json({ error: 'Name and tag are required' }, 400)
     }
 
-    const raw = await fetch(
+    const raw = await get(
       `https://api.henrikdev.xyz/valorant/v1/mmr-history/${region}/${name}/${tag}?api_key=${VAL_API_KEY}`
     )
-    const { data } = await raw.json()
+    const { data: { data } } = raw
 
     if (!data) {
       return c.json({ message: 'Player not found' }, 404)

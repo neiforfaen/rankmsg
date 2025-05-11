@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
 import { env } from 'hono/adapter'
+import get from 'axios'
 
 const rankRouter = new Hono()
 
@@ -20,10 +21,11 @@ rankRouter.get('/v1/:region/:name/:tag', async (c) => {
       return c.json({ error: 'Name and tag are required' }, 400)
     }
 
-    const raw = await fetch(
+    const raw = await get(
       `https://api.henrikdev.xyz/valorant/v2/mmr/${region}/${name}/${tag}?api_key=${VAL_API_KEY}`
     )
-    const { data } = await raw.json()
+
+    const { data: { data } } = raw
 
     if (!data) {
       return c.json({ message: 'Player not found' }, 404)
