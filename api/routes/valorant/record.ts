@@ -15,33 +15,30 @@ recordRouter.get('/daily/:region/:name/:tag', async (c) => {
     const { VAL_API_KEY } = env<Env>(c, 'edge-light')
     const { name, tag, region } = c.req.param()
 
-    if (!['eu', 'na', 'ap', 'kr'].includes(region)) {
-      return c.json({ error: 'Invalid region' }, 400)
+    const validRegions = new Set(['eu', 'na', 'apac'])
+    if (!validRegions.has(region) || !name || !tag) {
+      return c.json({ error: 'Invalid region or missing name/tag' }, 400)
     }
 
-    if (!name || !tag) {
-      return c.json({ error: 'Name and tag are required' }, 400)
-    }
-
-    const raw = await get(
+    const { data: { data }} = await get(
       `https://api.henrikdev.xyz/valorant/v1/mmr-history/${region}/${name}/${tag}?api_key=${VAL_API_KEY}`
     )
-    const { data: { data } } = raw
 
     if (!data) {
       return c.json({ message: 'Player not found' }, 404)
     }
 
-    const mmrHistory: MMRHistory = data.map((record: Record) => ({
-      date: record.date,
-      date_raw: record.date_raw,
-      mmr_change_to_last_game: record.mmr_change_to_last_game,
+    const mmrHistory: MMRHistory = data.map(({date, date_raw, mmr_change_to_last_game}: Record) => ({
+      date,
+      date_raw,
+      mmr_change_to_last_game,
     }))
 
     const { mmr, wins, losses } = aggregateMmr(mmrHistory, 'daily')
+    const sign = mmr === 0 ? '' : mmr > 0 ? '+' : '-'
 
     return c.json({
-      message: `${wins}W / ${losses}L | ${mmr > 0 ? '+' : '-'}${mmr}RR`,
+      message: `${wins}W / ${losses}L | ${sign}${mmr}RR`,
     })
   } catch (error) {
     const { message } = error as Error
