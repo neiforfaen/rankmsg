@@ -1,6 +1,6 @@
+import get from 'axios'
 import { Hono } from 'hono'
 import { env } from 'hono/adapter'
-import get from 'axios'
 
 const rankRouter = new Hono()
 
