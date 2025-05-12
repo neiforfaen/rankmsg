@@ -64,6 +64,15 @@ Response:
 }
 ```
 
+## Sample Nightbot Command
+
+You can use the following command in Nightbot to fetch the rank of a player:
+```js
+$(eval response=`$(urlfetch json https://api.kaiden.sh/rankmsg/valorant/rank/v1/eu/durstlöscher/apfel)`;
+try{msg=JSON.parse(response).message; msg  == null ? "Error fetching rank." : msg;}
+catch(e){`${e}: ${response}`.substr(0, 400)})
+```
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
