@@ -14,12 +14,15 @@ importers:
       hono:
         specifier: 4.7.9
         version: 4.7.9
+      vercel:
+        specifier: ^41.7.4
+        version: 41.7.4
     devDependencies:
       '@biomejs/biome':
         specifier: 1.9.4
         version: 1.9.4
       '@types/node':
-        specifier: ^22.15.3
+        specifier: ^22.15.17
         version: 22.15.17
       typescript:
         specifier: ^5.8.3
@@ -27,9 +30,6 @@ importers:
       ultracite:
         specifier: 4.2.4
         version: 4.2.4
-      vercel:
-        specifier: 41.7.4
-        version: 41.7.4
 
 packages:
 
@@ -861,6 +861,15 @@ packages:
       encoding:
         optional: true
 
+  node-fetch@2.7.0:
+    resolution: {integrity: sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==}
+    engines: {node: 4.x || >=6.0.0}
+    peerDependencies:
+      encoding: ^0.1.0
+    peerDependenciesMeta:
+      encoding:
+        optional: true
+
   node-gyp-build@4.8.4:
     resolution: {integrity: sha512-LA4ZjwlnUblHVgq0oBF3Jl/6h/Nvs5fzBLwdEF4nuxnFdsfajde4WfxtJr3CaiH+F6ewcIB/q4jQ4UzPyid+CQ==}
     hasBin: true
@@ -991,6 +1000,10 @@ packages:
 
   signal-exit@4.0.2:
     resolution: {integrity: sha512-MY2/qGx4enyjprQnFaZsHib3Yadh3IXyV2C321GY0pjGfVBu4un0uDJkwgdxqO+Rdx8JMT8IfJIRwbYVz3Ob3Q==}
+    engines: {node: '>=14'}
+
+  signal-exit@4.1.0:
+    resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
 
   stat-mode@0.3.0:
@@ -1257,7 +1270,7 @@ snapshots:
       consola: 3.4.2
       detect-libc: 2.0.4
       https-proxy-agent: 7.0.6
-      node-fetch: 2.6.9
+      node-fetch: 2.7.0
       nopt: 8.1.0
       semver: 7.7.1
       tar: 7.4.3
@@ -1763,7 +1776,7 @@ snapshots:
   foreground-child@3.3.1:
     dependencies:
       cross-spawn: 7.0.6
-      signal-exit: 4.0.2
+      signal-exit: 4.1.0
 
   form-data@4.0.2:
     dependencies:
@@ -1970,6 +1983,10 @@ snapshots:
     dependencies:
       whatwg-url: 5.0.0
 
+  node-fetch@2.7.0:
+    dependencies:
+      whatwg-url: 5.0.0
+
   node-gyp-build@4.8.4: {}
 
   nopt@8.1.0:
@@ -2066,6 +2083,8 @@ snapshots:
   shebang-regex@3.0.0: {}
 
   signal-exit@4.0.2: {}
+
+  signal-exit@4.1.0: {}
 
   stat-mode@0.3.0: {}
 
