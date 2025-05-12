@@ -21,7 +21,7 @@ const resolveEndpoints = () => ({
       },
     },
   },
-  '/valorant/v1/:region/:name/:tag': {
+  '/valorant/rank/v1/:region/:name/:tag': {
     GET: {
       description:
         'Get the current valorant rank of a player, including current MMR and peak rank.',
@@ -33,7 +33,7 @@ const resolveEndpoints = () => ({
       },
     },
   },
-  '/valorant/v1/:region/:name/:tag/daily': {
+  '/valorant/record/v1/daily/:region/:name/:tag': {
     GET: {
       description:
         'Get the daily MMR change of a player, including wins and losses.',
