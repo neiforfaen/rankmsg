@@ -20,7 +20,9 @@ recordRouter.get('/daily/:region/:name/:tag', async (c) => {
       return c.json({ error: 'Invalid region or missing name/tag' }, 400)
     }
 
-    const { data: { data }} = await get(
+    const {
+      data: { data },
+    } = await get(
       `https://api.henrikdev.xyz/valorant/v1/mmr-history/${region}/${name}/${tag}?api_key=${VAL_API_KEY}`
     )
 
@@ -28,11 +30,13 @@ recordRouter.get('/daily/:region/:name/:tag', async (c) => {
       return c.json({ message: 'Player not found' }, 404)
     }
 
-    const mmrHistory: MMRHistory = data.map(({date, date_raw, mmr_change_to_last_game}: Record) => ({
-      date,
-      date_raw,
-      mmr_change_to_last_game,
-    }))
+    const mmrHistory: MMRHistory = data.map(
+      ({ date, date_raw, mmr_change_to_last_game }: Record) => ({
+        date,
+        date_raw,
+        mmr_change_to_last_game,
+      })
+    )
 
     const { mmr, wins, losses } = aggregateMmr(mmrHistory, 'daily')
     const sign = mmr === 0 ? '' : mmr > 0 ? '+' : '-'

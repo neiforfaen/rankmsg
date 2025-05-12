@@ -19,7 +19,9 @@ rankRouter.get('/v1/:region/:name/:tag', async (c) => {
       return c.json({ error: 'Invalid region or missing name/tag' }, 400)
     }
 
-    const { data: { data }} = await get(
+    const {
+      data: { data },
+    } = await get(
       `https://api.henrikdev.xyz/valorant/v2/mmr/${region}/${name}/${tag}?api_key=${VAL_API_KEY}`
     )
 
